@@ -12,7 +12,7 @@ public class OutputView {
     private static final String GAME_START_INFO_MESSAGE = "다리 건너기 게임을 시작합니다.\n";
 
     private static final String BRIDGE_START_SIGN = "[";
-    private static final String BRIDGE_END_SIGN = "]";
+    private static final String BRIDGE_END_SIGN = "]\n";
     private static final String BRIDGE_DIVIDE_SIGN = "|";
     private static final String MOVE_SUCCESS_SIGN = " O ";
     private static final String MOVE_FAIL_SIGN = " X ";
@@ -35,7 +35,7 @@ public class OutputView {
 
     private String getMapOfBaseTile(Tile baseTile, Bridge bridge, Player player) {
         StringBuilder stringBuilder = new StringBuilder(BRIDGE_START_SIGN);
-        for (int position = 1; position < player.getCurrentPosition(); position++) {
+        for (int position = 1; position <= player.getCurrentPosition(); position++) {
             Tile passedTile = player.getPassedTileAt(position);
             stringBuilder.append(getTileSign(baseTile, passedTile, bridge.isTileOn(position, passedTile)));
             stringBuilder.append(BRIDGE_DIVIDE_SIGN);
