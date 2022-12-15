@@ -1,6 +1,10 @@
 package bridge.view;
 
+import bridge.domain.InputFormat;
+import bridge.domain.Tile;
 import camp.nextstep.edu.missionutils.Console;
+
+import java.util.List;
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -8,6 +12,10 @@ import camp.nextstep.edu.missionutils.Console;
 public class InputView {
 
     private static final String BRIDGE_SIZE_INPUT_INFO_MESSAGE = "다리의 길이를 입력해주세요.";
+    private static final String MOVING_DIRECTION_INPUT_INFO_MESSAGE_FORMAT = "이동할 칸을 선택해 주세요. %s";
+    private static final String INPUT_GUIDE_START_SIGN = "(";
+    private static final String INPUT_GUIDE_END_SIGN = ")";
+    private static final String INPUT_GUIDE_DIVIDE_SIGN = ", ";
 
     private final InputValidator inputValidator;
 
@@ -28,8 +36,23 @@ public class InputView {
     /**
      * 사용자가 이동할 칸을 입력받는다.
      */
-    public String readMoving() {
-        return null;
+    public Tile readMoving() {
+        System.out.println(String.format(MOVING_DIRECTION_INPUT_INFO_MESSAGE_FORMAT,
+                makeInputGuide(List.of(Tile.values()))));
+
+        String directionInput = Console.readLine();
+        return Tile.findByDirection(directionInput);
+    }
+
+    private String makeInputGuide(List<InputFormat> inputDataPool) {
+        StringBuilder inputGuideBuilder = new StringBuilder(INPUT_GUIDE_START_SIGN);
+        for (InputFormat inputData : inputDataPool) {
+            inputGuideBuilder.append(inputData.getInputGuide());
+            inputGuideBuilder.append(INPUT_GUIDE_DIVIDE_SIGN);
+        }
+        inputGuideBuilder.replace(inputGuideBuilder.length()-INPUT_GUIDE_DIVIDE_SIGN.length(),
+                inputGuideBuilder.length(), INPUT_GUIDE_END_SIGN);
+        return inputDataPool.toString();
     }
 
     /**
