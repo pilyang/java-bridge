@@ -1,8 +1,14 @@
 package bridge.controller;
 
+import bridge.BridgeMaker;
+import bridge.BridgeRandomNumberGenerator;
+import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
+import bridge.util.RepeatValidator;
 import bridge.view.InputView;
 import bridge.view.OutputView;
+
+import java.util.List;
 
 public class GameController {
 
@@ -18,5 +24,14 @@ public class GameController {
 
     public void initBridgeGame() {
         outputView.printGameStartInfo();
+    }
+
+    private Bridge makeBridge() {
+        return RepeatValidator.readUntilValidate(() -> {
+            int bridgeSize = inputView.readBridgeSize();
+            BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
+            List<String> directions = bridgeMaker.makeBridge(bridgeSize);
+            return Bridge.from(directions);
+        });
     }
 }
