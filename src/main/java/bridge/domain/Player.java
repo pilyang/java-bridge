@@ -23,6 +23,10 @@ public class Player {
         return movingLog.get(getCurrentPosition() - 1);
     }
 
+    public Tile getPassedTileAt(int positionIndex) {
+        return movingLog.get(positionIndex - 1);
+    }
+
     public int getCurrentPosition() {
         return movingLog.size();
     }
