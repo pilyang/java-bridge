@@ -25,6 +25,7 @@ public class GameController {
 
     public void playBridgeGame() {
         initBridgeGame();
+        readMovingTargetTile();
     }
 
     private void initBridgeGame() {
@@ -38,6 +39,12 @@ public class GameController {
             BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
             List<String> directions = bridgeMaker.makeBridge(bridgeSize);
             return BridgeGame.from(directions);
+        });
+    }
+
+    private Tile readMovingTargetTile() {
+        return RepeatValidator.readUntilValidate(() -> {
+            return inputView.readMoving();
         });
     }
 }
