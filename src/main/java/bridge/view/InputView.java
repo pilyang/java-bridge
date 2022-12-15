@@ -37,8 +37,8 @@ public class InputView {
      * 사용자가 이동할 칸을 입력받는다.
      */
     public Tile readMoving() {
-        System.out.println(String.format(MOVING_DIRECTION_INPUT_INFO_MESSAGE_FORMAT,
-                makeInputGuide(List.of(Tile.values()))));
+        String inputGuide = makeInputGuide(List.of(Tile.values()));
+        System.out.println(String.format(MOVING_DIRECTION_INPUT_INFO_MESSAGE_FORMAT,inputGuide));
 
         String directionInput = Console.readLine();
         return Tile.findByDirection(directionInput);
@@ -52,7 +52,7 @@ public class InputView {
         }
         inputGuideBuilder.replace(inputGuideBuilder.length()-INPUT_GUIDE_DIVIDE_SIGN.length(),
                 inputGuideBuilder.length(), INPUT_GUIDE_END_SIGN);
-        return inputDataPool.toString();
+        return inputGuideBuilder.toString();
     }
 
     /**
