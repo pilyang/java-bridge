@@ -25,11 +25,14 @@ public class Bridge {
     }
 
     private static void validateBridgeSize(int size) {
-        if(size < MIN_BRIDGE_SIZE || size > MAX_BRIDGE_SIZE) {
+        if (size < MIN_BRIDGE_SIZE || size > MAX_BRIDGE_SIZE) {
             throw new IllegalArgumentException(String
                     .format(BRIDGE_SIZE_EXCEPTION_MESSAGE_FORMAT, MIN_BRIDGE_SIZE, MAX_BRIDGE_SIZE));
         }
     }
 
+    public boolean isTileOn(int position, Tile tile) {
+        return tiles.get(position - 1).equals(tile);
+    }
 
 }

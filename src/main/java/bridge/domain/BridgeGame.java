@@ -25,6 +25,14 @@ public class BridgeGame {
      */
     public void move(Player player, Tile target) {
         player.moveTo(target);
+        setPlayerStatus(player);
+    }
+
+    private void setPlayerStatus(Player player) {
+        if (bridge.isTileOn(player.getCurrentPosition(), player.getCurrentTile())) {
+            return;
+        }
+        player.die();
     }
 
     /**
