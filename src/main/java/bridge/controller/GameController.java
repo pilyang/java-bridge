@@ -4,6 +4,7 @@ import bridge.BridgeMaker;
 import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
+import bridge.domain.Player;
 import bridge.domain.Tile;
 import bridge.util.RepeatValidator;
 import bridge.view.InputView;
@@ -25,7 +26,8 @@ public class GameController {
 
     public void playBridgeGame() {
         initBridgeGame();
-        readMovingTargetTile();
+        Player player = new Player();
+        playOneTurn(player);
     }
 
     private void initBridgeGame() {
@@ -40,6 +42,12 @@ public class GameController {
             List<String> directions = bridgeMaker.makeBridge(bridgeSize);
             return BridgeGame.from(directions);
         });
+    }
+
+    private void playOneTurn(Player player){
+        Tile moveTarget = readMovingTargetTile();
+        bridgeGame.move(player, moveTarget);
+        outputView.printMap(bridgeGame.getGameMap(), player);
     }
 
     private Tile readMovingTargetTile() {
