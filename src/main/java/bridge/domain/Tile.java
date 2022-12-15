@@ -24,6 +24,12 @@ public enum Tile {
                 .orElseThrow(() -> new IllegalArgumentException(CODE_EXCEPTION_MESSAGE));
     }
 
+    public static Tile findByDirection(String direction) {
+        return Arrays.stream(Tile.values())
+                .filter(tile -> tile.direction.equals(direction))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(DIRECTION_EXCEPTION_MESSAGE));
+    }
 
     public String getDirection() {
         return direction;
