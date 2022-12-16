@@ -66,13 +66,13 @@ public class GameController {
     private boolean isEndGame(Player player) {
         GameStatus gameStatus = bridgeGame.getStatus(player);
         if (gameStatus.equals(GameStatus.FAIL)) {
-            return askForTryAgain(player);
+            return !askForTryAgain(player);
         }
         return !gameStatus.isPlayable();
     }
 
     private boolean askForTryAgain(Player player) {
-        GameCommand command = inputView.readGameCommand();
+        GameCommand command = RepeatValidator.readUntilValidate(() -> inputView.readGameCommand());
         if (command.isTryAgain()) {
             bridgeGame.retry(player);
             return true;
