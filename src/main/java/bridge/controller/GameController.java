@@ -29,6 +29,7 @@ public class GameController {
         initBridgeGame();
         Player player = new Player();
         playUntilEnd(player);
+        showGameResult(player);
     }
 
     private void initBridgeGame() {
@@ -78,6 +79,10 @@ public class GameController {
             return true;
         }
         return false;
+    }
+
+    private void showGameResult(Player player) {
+        outputView.printResult(bridgeGame, player);
     }
 
 }

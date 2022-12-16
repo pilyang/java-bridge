@@ -44,4 +44,8 @@ public class Player {
     public boolean isAlive() {
         return isAlive;
     }
+
+    public int getTryCount() {
+        return tryCount;
+    }
 }
