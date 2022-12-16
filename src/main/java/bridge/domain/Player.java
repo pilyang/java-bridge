@@ -35,6 +35,12 @@ public class Player {
         isAlive = false;
     }
 
+    public void resurrect() {
+        tryCount++;
+        movingLog = new ArrayList<>();
+        isAlive = true;
+    }
+
     public boolean isAlive() {
         return isAlive;
     }
