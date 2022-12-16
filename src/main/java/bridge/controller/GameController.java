@@ -28,7 +28,7 @@ public class GameController {
     public void playBridgeGame() {
         initBridgeGame();
         Player player = new Player();
-        playOneTurn(player);
+        playUntilEnd(player);
     }
 
     private void initBridgeGame() {
@@ -43,6 +43,12 @@ public class GameController {
             List<String> directions = bridgeMaker.makeBridge(bridgeSize);
             return BridgeGame.from(directions);
         });
+    }
+
+    private void playUntilEnd(Player player) {
+        do {
+            playOneTurn(player);
+        } while (!isEndGame(player));
     }
 
     private void playOneTurn(Player player) {
