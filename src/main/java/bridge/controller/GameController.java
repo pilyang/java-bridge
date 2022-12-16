@@ -2,8 +2,9 @@ package bridge.controller;
 
 import bridge.BridgeMaker;
 import bridge.BridgeRandomNumberGenerator;
-import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
+import bridge.domain.GameCommand;
+import bridge.domain.GameStatus;
 import bridge.domain.Player;
 import bridge.domain.Tile;
 import bridge.util.RepeatValidator;
@@ -44,7 +45,7 @@ public class GameController {
         });
     }
 
-    private void playOneTurn(Player player){
+    private void playOneTurn(Player player) {
         Tile moveTarget = readMovingTargetTile();
         bridgeGame.move(player, moveTarget);
         outputView.printMap(bridgeGame.getGameMap(), player);
@@ -55,4 +56,22 @@ public class GameController {
             return inputView.readMoving();
         });
     }
+
+    private boolean isEndGame(Player player) {
+        GameStatus gameStatus = bridgeGame.getStatus(player);
+        if (gameStatus.equals(GameStatus.FAIL)) {
+            return askForTryAgain(player);
+        }
+        return !gameStatus.isPlayable();
+    }
+
+    private boolean askForTryAgain(Player player) {
+        GameCommand command = inputView.readGameCommand();
+        if (command.isTryAgain()) {
+            bridgeGame.retry(player);
+            return true;
+        }
+        return false;
+    }
+
 }

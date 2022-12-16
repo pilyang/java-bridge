@@ -1,5 +1,6 @@
 package bridge.view;
 
+import bridge.domain.GameCommand;
 import bridge.domain.InputFormat;
 import bridge.domain.Tile;
 import camp.nextstep.edu.missionutils.Console;
@@ -13,6 +14,7 @@ public class InputView {
 
     private static final String BRIDGE_SIZE_INPUT_INFO_MESSAGE = "다리의 길이를 입력해주세요.";
     private static final String MOVING_DIRECTION_INPUT_INFO_MESSAGE_FORMAT = "이동할 칸을 선택해 주세요. %s";
+    private static final String GAME_COMMAND_INPUT_INFO_MESSAGE_FORMAT = "게임을 다시 시도할지 여부를 입력해주세요. %s";
     private static final String INPUT_GUIDE_START_SIGN = "(";
     private static final String INPUT_GUIDE_END_SIGN = ")";
     private static final String INPUT_GUIDE_DIVIDE_SIGN = ", ";
@@ -58,7 +60,11 @@ public class InputView {
     /**
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
-    public String readGameCommand() {
-        return null;
+    public GameCommand readGameCommand() {
+        String inputGuide = makeInputGuide(List.of(GameCommand.values()));
+        System.out.println(String.format(GAME_COMMAND_INPUT_INFO_MESSAGE_FORMAT, inputGuide));
+
+        String commandInput = Console.readLine();
+        return GameCommand.findByCommand(commandInput);
     }
 }

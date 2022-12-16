@@ -35,4 +35,8 @@ public class Bridge {
         return tiles.get(position - 1).equals(tile);
     }
 
+    public int size() {
+        return tiles.size();
+    }
+
 }

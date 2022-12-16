@@ -34,4 +34,8 @@ public class Player {
     public void die() {
         isAlive = false;
     }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
 }
